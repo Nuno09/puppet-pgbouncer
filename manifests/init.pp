@@ -184,7 +184,7 @@ class pgbouncer (
     }
   }
 
-  validate_bool($service_start_with_system)
+  validate_legacy(Boolean, 'validate_bool', $service_start_with_system)
 
   service {'pgbouncer':
     ensure    => running,
