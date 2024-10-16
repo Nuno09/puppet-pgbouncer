@@ -7,7 +7,7 @@ define pgbouncer::databases(
   $databases = [],
 ) {
 
-  validate_array($databases)
+  validate_legacy(Array, 'validate_array' $databases)
 
   unless empty($databases[0]) {
     $uniq_name = "${databases[0]['dest_db']}_${databases[0]['auth_user']}"
