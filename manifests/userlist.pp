@@ -7,7 +7,7 @@ define pgbouncer::userlist(
   $paramtmpfile = '',
 ) {
 
-  validate_array($auth_list)
+  validate_legacy(Array, 'validate_array', $auth_list)
 
   concat::fragment { $auth_list[0]['user']:
     target  => $::pgbouncer::userlist_file,
