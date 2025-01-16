@@ -9,6 +9,7 @@ class pgbouncer::params {
   $paramtmpfile               = '/tmp/pgbouncer-paramtmpfile'
   $config_params              = undef
   $pgbouncer_package_name     = 'pgbouncer'
+  $deb_default_file           = ''
   $service_start_with_system  = true
   $user                       = 'pgbouncer'
   $group                      = 'pgbouncer'
