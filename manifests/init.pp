@@ -95,31 +95,30 @@ class pgbouncer (
   String $group                       = $pgbouncer::params::group,
   Boolean $require_repo               = $pgbouncer::params::require_repo,
 ) inherits pgbouncer::params {
-
   # merge the defaults and custom params
   $load_config_params = merge($default_config_params, $config_params)
 
-  anchor{'pgbouncer::begin':}
+  anchor { 'pgbouncer::begin': }
 
   # Same package name for both redhat based and debian based
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat', 'Linux': {
       $package_require = $require_repo ? {
-        true  => [ Class['postgresql::repo::yum_postgresql_org'], Anchor['pgbouncer::begin'] ],
+        true  => [Class['postgresql::repo::yum_postgresql_org'], Anchor['pgbouncer::begin']],
         false => Anchor['pgbouncer::begin'],
       }
-      package{ $pgbouncer_package_name:
+      package { $pgbouncer_package_name:
         ensure  => installed,
         require => $package_require,
       }
     }
     'FreeBSD', 'Debian': {
-      package{ $pgbouncer_package_name:
+      package { $pgbouncer_package_name:
         ensure  => installed,
       }
     }
     default: {
-      fail("Module ${module_name} is not supported on ${::operatingsystem}")
+      fail("Module ${module_name} is not supported on ${facts['os']['name']}")
     }
   }
   # verify we have config file managed by concat
@@ -147,8 +146,8 @@ class pgbouncer (
   }
 
   # check if debian
-  if $::osfamily == 'Debian' {
-    file{ $deb_default_file:
+  if $facts['os']['family'] == 'Debian' {
+    file { $deb_default_file:
       ensure  => file,
       source  => 'puppet:///modules/pgbouncer/pgbouncer',
       require => Package[$pgbouncer_package_name],
@@ -157,8 +156,8 @@ class pgbouncer (
   }
   # check if we have an authlist
   if $userlist {
-    pgbouncer::userlist{ 'pgbouncer_module_userlist':
-      auth_list => $userlist,
+    pgbouncer::userlist { 'pgbouncer_module_userlist':
+      auth_list    => $userlist,
       paramtmpfile => $paramtmpfile,
     }
   }
@@ -179,18 +178,18 @@ class pgbouncer (
 
   # check if we have a database list and create entries
   if $databases {
-    pgbouncer::databases{ 'pgbouncer_module_databases':
+    pgbouncer::databases { 'pgbouncer_module_databases':
       databases => $databases,
     }
   }
 
-  service {'pgbouncer':
+  service { 'pgbouncer':
     ensure    => running,
     enable    => $service_start_with_system,
     subscribe => Concat[$userlist_file, $conffile],
   }
 
-  anchor{'pgbouncer::end':
+  anchor { 'pgbouncer::end':
     require => Service['pgbouncer'],
   }
 }

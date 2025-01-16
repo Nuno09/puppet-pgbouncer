@@ -1,3 +1,3 @@
-class {'pgbouncer':
-    auth_list => [ "\"postgres\" \"postgres\""],
+class { 'pgbouncer':
+  auth_list => ["\"postgres\" \"postgres\""],
 }
