@@ -2,21 +2,20 @@
 #
 # Private class included by pgbouncer to set parameters
 #
-class pgbouncer::params {
-
-  Array $userlist                    = []
-  Array $databases                   = []
-  Sting $paramtmpfile                = '/tmp/pgbouncer-paramtmpfile'
-  Hash $config_params                = undef
-  String $pgbouncer_package_name     = 'pgbouncer'
-  String $deb_default_file           = ''
-  Boolean $service_start_with_system = true
-  String $user                       = 'pgbouncer'
-  String $group                      = 'pgbouncer'
-  Boolean $require_repo              = true
-
+class pgbouncer::params (
+  Array $userlist                    = [],
+  Array $databases                   = [],
+  String $paramtmpfile                = '/tmp/pgbouncer-paramtmpfile',
+  Hash $config_params                = {},
+  String $pgbouncer_package_name     = 'pgbouncer',
+  String $deb_default_file           = '',
+  Boolean $service_start_with_system = true,
+  String $user                       = 'pgbouncer',
+  String $group                      = 'pgbouncer',
+  Boolean $require_repo              = true,
+) {
   # === Set OS specific variables === #
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat', 'Linux': {
       $logfile                 = '/var/log/pgbouncer/pgbouncer.log'
       $pidfile                 = '/var/run/pgbouncer/pgbouncer.pid'
@@ -43,7 +42,7 @@ class pgbouncer::params {
       $unix_socket_dir         = '/tmp'
     }
     default: {
-      fail("Module ${module_name} is not supported on ${::operatingsystem}")
+      fail("Module ${module_name} is not supported on ${facts['os']['name']}")
     }
   }
   # === Setup default parameters === #

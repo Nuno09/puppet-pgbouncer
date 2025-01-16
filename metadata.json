@@ -2,16 +2,20 @@
   "name": "covermymeds-pgbouncer",
   "version": "0.3.3",
   "author": "CJ Estel",
-  "license": "GPL-3.0+",
   "summary": "Deploys pgbouncer",
+  "license": "GPL-3.0+",
   "source": "https://github.com/covermymeds/puppet-pgbouncer.git",
   "project_page": "https://github.com/covermymeds/puppet-pgbouncer",
   "issues_url": "https://github.com/covermymeds/puppet-pgbouncer/issues",
-  "tags": [
-    "postgres",
-    "pgbouncer",
-    "pool",
-    "proxy"
+  "dependencies": [
+    {
+      "name": "puppetlabs-concat",
+      "version_requirement": ">=1.1.1"
+    },
+    {
+      "name": "puppetlabs-postgresql",
+      "version_requirement": ">=4.3.0"
+    }
   ],
   "operatingsystem_support": [
     {
@@ -46,14 +50,19 @@
       ]
     }
   ],
-  "dependencies": [
-    { 
-      "name": "puppetlabs-concat", 
-      "version_requirement": ">=1.1.1"
-    },
-    { 
-      "name": "puppetlabs-postgresql", 
-      "version_requirement": ">=4.3.0" 
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 7.24 < 9.0.0"
     }
-  ]
+  ],
+  "tags": [
+    "postgres",
+    "pgbouncer",
+    "pool",
+    "proxy"
+  ],
+  "pdk-version": "3.4.0",
+  "template-url": "https://github.com/puppetlabs/pdk-templates#main",
+  "template-ref": "tags/3.4.0.2-0-gd5f5ac1"
 }
