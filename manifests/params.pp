@@ -6,7 +6,7 @@ class pgbouncer::params (
   Array $userlist                    = [],
   Array $databases                   = [],
   String $paramtmpfile                = '/tmp/pgbouncer-paramtmpfile',
-  Hash $config_params                = undef,
+  Hash $config_params                = {},
   String $pgbouncer_package_name     = 'pgbouncer',
   String $deb_default_file           = '',
   Boolean $service_start_with_system = true,
