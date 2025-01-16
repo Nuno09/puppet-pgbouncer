@@ -3,11 +3,9 @@
 # defined type that can be used to create the userlist in the auth_file
 #
 define pgbouncer::userlist(
-  $auth_list = [],
-  $paramtmpfile = '',
+  Array $auth_list     = [],
+  String $paramtmpfile = '',
 ) {
-
-  validate_legacy(Array, 'validate_array', $auth_list)
 
   concat::fragment { $auth_list[0]['user']:
     target  => $::pgbouncer::userlist_file,

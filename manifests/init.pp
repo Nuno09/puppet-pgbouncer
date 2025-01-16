@@ -81,19 +81,19 @@
 # deb_default_file is a file specific to ubuntu that loads a startup file
 #
 class pgbouncer (
-  $userlist                   = $pgbouncer::params::userlist,
-  $databases                  = $pgbouncer::params::databases,
-  $paramtmpfile               = $pgbouncer::params::paramtmpfile,
-  $default_config_params      = $pgbouncer::params::default_config_params,
-  $config_params              = $pgbouncer::params::config_params,
-  $pgbouncer_package_name     = $pgbouncer::params::pgbouncer_package_name,
-  $conffile                   = $pgbouncer::params::conffile,
-  $userlist_file              = $pgbouncer::params::userlist_file,
-  $deb_default_file           = $pgbouncer::params::deb_default_file,
-  $service_start_with_system  = $pgbouncer::params::service_start_with_system,
-  $user                       = $pgbouncer::params::user,
-  $group                      = $pgbouncer::params::group,
-  $require_repo               = $pgbouncer::params::require_repo,
+  Array $userlist                     = $pgbouncer::params::userlist,
+  Array $databases                    = $pgbouncer::params::databases,
+  String $paramtmpfile                = $pgbouncer::params::paramtmpfile,
+  Hash $default_config_params         = $pgbouncer::params::default_config_params,
+  Hash $config_params                 = $pgbouncer::params::config_params,
+  String $pgbouncer_package_name      = $pgbouncer::params::pgbouncer_package_name,
+  String $conffile                    = $pgbouncer::params::conffile,
+  String $userlist_file               = $pgbouncer::params::userlist_file,
+  String $deb_default_file            = $pgbouncer::params::deb_default_file,
+  Boolean $service_start_with_system  = $pgbouncer::params::service_start_with_system,
+  String $user                        = $pgbouncer::params::user,
+  String $group                       = $pgbouncer::params::group,
+  Boolean $require_repo               = $pgbouncer::params::require_repo,
 ) inherits pgbouncer::params {
 
   # merge the defaults and custom params
@@ -183,8 +183,6 @@ class pgbouncer (
       databases => $databases,
     }
   }
-
-  validate_legacy(Boolean, 'validate_bool', $service_start_with_system)
 
   service {'pgbouncer':
     ensure    => running,

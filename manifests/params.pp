@@ -4,16 +4,16 @@
 #
 class pgbouncer::params {
 
-  $userlist                   = []
-  $databases                  = []
-  $paramtmpfile               = '/tmp/pgbouncer-paramtmpfile'
-  $config_params              = undef
-  $pgbouncer_package_name     = 'pgbouncer'
-  $deb_default_file           = ''
-  $service_start_with_system  = true
-  $user                       = 'pgbouncer'
-  $group                      = 'pgbouncer'
-  $require_repo               = true
+  Array $userlist                    = []
+  Array $databases                   = []
+  Sting $paramtmpfile                = '/tmp/pgbouncer-paramtmpfile'
+  Hash $config_params                = undef
+  String $pgbouncer_package_name     = 'pgbouncer'
+  String $deb_default_file           = ''
+  Boolean $service_start_with_system = true
+  String $user                       = 'pgbouncer'
+  String $group                      = 'pgbouncer'
+  Boolean $require_repo              = true
 
   # === Set OS specific variables === #
   case $::osfamily {
