@@ -5,7 +5,7 @@
 class pgbouncer::params (
   Array $userlist                    = [],
   Array $databases                   = [],
-  Sting $paramtmpfile                = '/tmp/pgbouncer-paramtmpfile',
+  String $paramtmpfile                = '/tmp/pgbouncer-paramtmpfile',
   Hash $config_params                = undef,
   String $pgbouncer_package_name     = 'pgbouncer',
   String $deb_default_file           = '',
