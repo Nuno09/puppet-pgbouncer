@@ -4,9 +4,8 @@
 # file
 #
 define pgbouncer::databases (
-  $databases = [],
+  Array $databases = [],
 ) {
-  validate_array($databases)
 
   unless empty($databases[0]) {
     $uniq_name = "${databases[0]['dest_db']}_${databases[0]['auth_user']}"
